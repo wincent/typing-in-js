@@ -264,10 +264,12 @@
         # This is an example of slide written in Markdown
         ## Subtitle
 
+        <!-- Comment in the middle. -->
+
         1. Some steps.
         2. To follow.
 
-        <!-- comments -->
+        <!-- Comment at the end. -->
       </section>
 
     </article>
@@ -416,20 +418,30 @@
           const rendered = markdownit().render(text);
 
           // Instead of just blowing everything away by setting innerHTML,
-          // specifically find the text node and replace only it, thus
-          // preserving comments (and thus presenter notes).
-          let node = element;
-          while (node) {
-            if (node.nodeType === Node.TEXT_NODE) {
-              break;
+          // specifically find the text node(s) and replace only it
+          // (them), thus preserving comments (and therefore presenter
+          // notes).
+          const textNodes = [];
+          const visit = node => {
+            if (!node) {
+              return;
             }
-            node = node.firstChild || node.nextSibling;
-          }
-          if (node) {
+            if (node.nodeType === Node.TEXT_NODE) {
+              textNodes.push(node);
+            }
+            visit(node.firstChild);
+            visit(node.nextSibling);
+          };
+          visit(element);
+          const [first, ...rest] = textNodes;
+          if (first) {
             const replacement = document.createElement('div');
-            node.parentNode.replaceChild(replacement, node);
+            first.parentNode.replaceChild(replacement, first);
             replacement.outerHTML = rendered;
           }
+          rest.forEach(node => {
+            node.parentNode.removeChild(node);
+          });
         }
 
         window.onpopstate = ({state}) => {
