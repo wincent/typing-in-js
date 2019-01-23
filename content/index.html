@@ -237,10 +237,10 @@
       <section>
       </section>
 
-      <section class="dark photo sample-photo">
-        <h1>Talk title</h1>
-        <h2>Greg Hurrell</h2>
-        <h3>@wincent</h3>
+      <section class="markdown dark photo sample-photo">
+        # Talk title
+        ## Greg Hurrell
+        ### @wincent
         <!-- I'm Greg Hurrell. -->
       </section>
 
@@ -419,7 +419,9 @@
               textNodes.push(node);
             }
             visit(node.firstChild);
-            visit(node.nextSibling);
+            if (node !== element) {
+              visit(node.nextSibling);
+            }
           };
           visit(element);
           const [first, ...rest] = textNodes;
@@ -438,10 +440,11 @@
             showSlide(slides[state.index], true);
           }
         };
+
         window.onload = () => {
           document.querySelectorAll('pre code').forEach(hljs.highlightBlock);
           document.querySelectorAll('.markdown').forEach(renderMarkdown);
-        }
+        };
 
         document.addEventListener('keydown', event => {
           if (event.ctrlKey || event.altKey || event.metaKey) {
