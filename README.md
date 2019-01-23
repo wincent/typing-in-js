@@ -35,7 +35,7 @@ In order for this to work with Chrome in fullscreen mode (which you will want on
 * Don't want to suffer through using Keynote (adding and updating syntax-highlighted code samples is a pain, all the clicking and dragging is a pain).
 * Want simple control over appearance via CSS.
 * Want ability to meaningfully and usefully version-control the content, so need plain-text formats.
-* Don't want to choose from a zillion possible frameworks then learn and customize one; just want to write a single, vanilla HTML file with some very simple styles at the top and a bit of JS logic at the bottom.
+* Don't want to choose from a zillion possible frameworks then learn and customize one; just want to write a single, vanilla HTML file with no significant external deps.
 * Want ability to embed snippets from external files (for easy updates of source code samples).
 * Want basic presenter notes (embedded HTML comments become notes) and timer functionality.
 * Want smart resizing of text and graphics for maximum readability (`pre` blocks get stretched to fill space with JS; SVG images get stretched via flexbox).
