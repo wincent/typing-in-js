@@ -6,7 +6,7 @@ Slide content is at "content/index.html". A double-clickable `slides.url` shortc
 
 ### Features
 
-Plain-text snippets (source code, ASCII-art diagrams) in the "content" directory are included via an `iframe` hack, but due to the same-origin policy, the hack won't work with resources accessed using `file://` URLs. As such, we need serve the presentation locally using the included `run.sh` script.
+Plain-text snippets (source code, ASCII-art diagrams) in the "content" directory are included via an `iframe` hack, but due to the same-origin policy, the hack won't work with resources accessed using `file://` URLs. Similarly, we can't import ES Modules without having a properly set MIME type. As such, we need serve the presentation locally using the included `run.py` script.
 
 ### Presenter mode
 
