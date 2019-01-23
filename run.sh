@@ -6,4 +6,7 @@
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 cd "$DIR/content"
-python -m SimpleHTTPServer 8888
+
+PORT=8888
+echo "Launching server at http://localhost:$PORT"
+python -m SimpleHTTPServer $PORT
