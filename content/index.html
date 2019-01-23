@@ -420,7 +420,7 @@
           // preserving comments (and thus presenter notes).
           let node = element;
           while (node) {
-            if (node.nodeType === 3) {
+            if (node.nodeType === Node.TEXT_NODE) {
               break;
             }
             node = node.firstChild || node.nextSibling;
