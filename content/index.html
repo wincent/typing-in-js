@@ -266,6 +266,8 @@
 
         1. Some steps.
         2. To follow.
+
+        <!-- comments -->
       </section>
 
     </article>
@@ -411,7 +413,23 @@
 
         function renderMarkdown(element) {
           const text = dedent`${element.textContent}`;
-          element.innerHTML = markdownit().render(text);
+          const rendered = markdownit().render(text);
+
+          // Instead of just blowing everything away by setting innerHTML,
+          // specifically find the text node and replace only it, thus
+          // preserving comments (and thus presenter notes).
+          let node = element;
+          while (node) {
+            if (node.nodeType === 3) {
+              break;
+            }
+            node = node.firstChild || node.nextSibling;
+          }
+          if (node) {
+            const replacement = document.createElement('div');
+            node.parentNode.replaceChild(replacement, node);
+            replacement.outerHTML = rendered;
+          }
         }
 
         window.onpopstate = ({state}) => {
