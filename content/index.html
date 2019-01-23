@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Presentation title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base target="_blank">
+    <style media="screen" type="text/css">
+      a {
+        color: #000;
+        text-decoration: none;
+      }
+
+      article {
+        position: relative;
+      }
+
+      body {
+        font-family: sans-serif;
+        font-size: 200%;
+        font-weight: 200;
+        margin: 0;
+      }
+
+      h1,
+      h2,
+      h3 {
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 3rem;
+        font-weight: 600;
+      }
+
+      h2 {
+        font-weight: 500;
+      }
+
+      h3 {
+        font-weight: 400;
+      }
+
+      html {
+        box-sizing: border-box;
+      }
+
+      iframe {
+        display: none;
+        height: 0;
+        width: 0;
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      li {
+        margin-bottom: 1rem;
+      }
+
+      pre {
+        padding: .5em;
+      }
+
+      pre > code {
+        /* Want to measure the natural size of the text, unconstrained by flow. */
+        position: absolute;
+      }
+
+      pre > code.hljs {
+        /* Don't let hljs throw off our auto-resizing calculations. */
+        padding: 0;
+      }
+
+      section {
+        --horizontal-padding: 60px;
+        --vertical-padding: 40px;
+        display: flex;
+        flex-direction: column;
+        height: calc(100vh - 2 * var(--vertical-padding));
+        justify-content: center;
+        opacity: 0;
+        overflow: hidden;
+        padding: var(--vertical-padding) var(--horizontal-padding);
+        position: absolute;
+        visibility: hidden;
+        transition: visiblility 0s, opacity .25s linear;
+        width: calc(100vw - 2 * var(--horizontal-padding));
+      }
+
+      strong {
+        font-weight: 500;
+      }
+
+      .sample-photo {
+        /* -webkit-filter: blur(10px); */
+        /* -webkit-filter: blur(5px); */
+        /* -webkit-filter: blur(2px); */
+        background-image: url(road.jpg);
+        /* If normal "light" class is not enough for readability: */
+        /* color: #fff; */
+        /* text-shadow: 2px 2px 20px #000, */
+        /*             -2px 2px 20px #000, */
+        /*             2px -2px 20px #000, */
+        /*             -2px -2px 20px #000; */
+      }
+
+      .center {
+        align-self: center;
+      }
+
+      .current {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .dark {
+        color: #fff;
+        text-shadow: 1px 1px 2px #000;
+      }
+
+      .full {
+        flex-grow: 1;
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      .huge {
+        font-size: 10rem;
+        text-align: center;
+      }
+
+      .important {
+        background-color: yellow;
+      }
+
+      .left {
+        align-self: flex-start;
+      }
+
+      .light {
+        text-shadow: 1px 1px 2px #fff;
+      }
+
+      .photo,
+      .photo:before {
+        background-position: center;
+        background-size: cover;
+      }
+
+      .photo:before {
+        content: ' ';
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: -1;
+      }
+
+      .slides {
+        height: 100vh;
+        width: 100vw;
+      }
+
+      .two-columns {
+        display: flex;
+        justify-content: space-around;
+      }
+
+      .two-columns > div {
+        flex-basis: calc(50vw - 100px);
+      }
+
+      #presenter {
+        -webkit-user-select: none;
+        background-color: #fff;
+        border-right: 1px solid #ddd;
+        display: inline-block;
+        font-size: 1rem;
+        opacity: .95;
+        padding: 10px;
+        position: fixed;
+        left: 0;
+      }
+
+      #notes {
+        background-color: #eee;
+        border-left: 1px solid #aaa;
+        bottom: 0;
+        box-shadow: 20px 10px 50px 40px rgba(0, 0, 0, .25);
+        max-width: 50vw;
+        opacity: .95;
+        padding: 16px;
+        position: fixed;
+        right: 0;
+        top: 0;
+        width: 800px;
+      }
+
+      #notes p:first-child {
+        margin-top: 0;
+      }
+
+      #notes p:last-child {
+        margin-bottom: 0;
+      }
+
+      #presenter {
+        border-bottom: 1px solid #ddd;
+        top: 0;
+      }
+
+      #presenter-toggle {
+        cursor: pointer;
+      }
+
+      #timer {
+        color: #000;
+        font-size: 25vh;
+        opacity: .25;
+        position: fixed;
+        right: 10px;
+        text-align: center;
+        bottom: 0;
+      }
+    </style>
+    <link rel="stylesheet" href="vendor/highlight/styles/googlecode.css">
+  </head>
+  <body>
+    <article id="slides">
+
+      <!-- Blank side for use during set-up. -->
+      <section>
+      </section>
+
+      <section class="dark photo sample-photo">
+        <h1>Talk title</h1>
+        <h2>Greg Hurrell</h2>
+        <h3>@wincent</h3>
+        <!-- I'm Greg Hurrell. -->
+      </section>
+
+      <section>
+        <pre><code class="javascript">const app = (data) =&gt; view;</code></pre>
+        <!-- A slide with code in it. -->
+        <!-- Classname (eg. "graphql", "json" etc) determines syntax highlighting. -->
+      </section>
+
+      <section>
+        <img class="full" src="view-hierarchy.svg" />
+        <!-- A slide with an SVG in it. -->
+      </section>
+
+      <section>
+        <script src="graphql-query.txt" type="text/plain"></script>
+        <!-- Loading a sample from a separate file. Always use type="text/plain". -->
+      </section>
+
+    </article>
+    <aside id="notes"></aside>
+    <aside id="presenter" class="hidden">
+      Presenter mode: <strong id="presenter-toggle">ON</strong>
+    </aside>
+    <aside id="timer" class="hidden">
+    </aside>
+    <script src="vendor/highlight/highlight.pack.js"></script>
+    <script>
+      (function() {
+        const KEY_DOWN = 40;
+        const KEY_LEFT = 37;
+        const KEY_RIGHT = 39;
+        const KEY_SPACE = 32;
+        const KEY_UP = 38;
+        const REMOTE_NEXT = 34;
+        const REMOTE_PREV = 33;
+
+        let interval = null;
+        let presenterMode = !!location.search.match(/\bpresenter\b/);
+        const notes = document.getElementById('notes');
+        const slides = document.querySelectorAll('#slides > section');
+        const timer = document.getElementById('timer');
+        const hash = parseInt(location.hash.slice(1), 10);
+        const currentSlideIndex = isNaN(hash) ?
+          0 :
+          Math.max(Math.min(slides.length, hash) - 1, 0);
+        let currentSlide = slides[currentSlideIndex];
+        showSlide(currentSlide);
+
+        if (presenterMode) {
+          if (isNaN(hash)) {
+            const slide = parseInt(localStorage.getItem('slide'), 10);
+            if (!isNaN(slide)) {
+              showSlide(slides[slide]);
+              pushState(slides[slide]);
+            }
+          }
+          document.getElementById('presenter').classList.remove('hidden');
+          startTimer();
+        } else {
+          notes.classList.add('hidden');
+        }
+
+        function zeroPad(number) {
+          return number < 10 ? '0' + number : number;
+        }
+
+        function startTimer() {
+          const start = Date.now();
+          clearInterval(interval);
+          timer.classList.remove('hidden');
+          interval = setInterval(() => {
+            const elapsed = Math.floor((Date.now() - start) / 1000);
+            const minutes = Math.floor(elapsed / 60);
+            const seconds = elapsed % 60;
+            timer.innerText = zeroPad(minutes) + ':' + zeroPad(seconds);
+          }, 250);
+        }
+
+        function nextSlide() {
+          const nextElement = currentSlide.nextElementSibling;
+          pushState(nextElement);
+          showSlide(nextElement, true);
+        }
+
+        function previousSlide() {
+          const previousElement = currentSlide.previousElementSibling;
+          pushState(previousElement);
+          showSlide(previousElement, true);
+        }
+
+        function showSlide(slide, broadcast) {
+          if (slide) {
+            currentSlide.classList.remove('current');
+            slide.classList.add('current');
+            currentSlide = slide;
+            if (presenterMode) {
+              updatePresenterNotes(slide);
+            }
+            if (broadcast) {
+              localStorage.setItem(
+                'slide',
+                Array.prototype.indexOf.call(slides, slide)
+              );
+            }
+          }
+        }
+
+        function updatePresenterNotes(slide) {
+          const comments = Array.prototype.filter.call(
+            slide.childNodes,
+            child => child.nodeType === Node.COMMENT_NODE
+          );
+          const content = comments.reduce((acc, comment) => {
+            const p = document.createElement('p');
+            p.innerHTML = comment.textContent.trim();
+            return acc.concat(p);
+          }, []);
+          while (notes.firstChild) {
+            notes.removeChild(notes.firstChild);
+          }
+          content.forEach(child => notes.appendChild(child));
+          if (content.length) {
+            notes.classList.remove('hidden');
+          } else {
+            notes.classList.add('hidden');
+          }
+        }
+
+        function pushState(slide) {
+          if (slide) {
+            const index = Array.prototype.indexOf.call(slides, slide);
+            history.pushState({index}, '', '#' + (index + 1));
+          }
+        }
+
+        window.onpopstate = ({state}) => {
+          if (state && state.index != null) {
+            showSlide(slides[state.index], true);
+          }
+        };
+        window.onload = () => {
+          document.querySelectorAll('pre code').forEach(hljs.highlightBlock);
+        }
+
+        document.addEventListener('keydown', event => {
+          if (event.ctrlKey || event.altKey || event.metaKey) {
+             return;
+          }
+          const keyCode = event.keyCode;
+          switch (keyCode) {
+            case KEY_DOWN:
+            case KEY_RIGHT:
+            case KEY_SPACE:
+            case REMOTE_NEXT:
+              nextSlide();
+              break;
+            case KEY_LEFT:
+            case KEY_UP:
+            case REMOTE_PREV:
+              previousSlide();
+              break;
+            default:
+              return;
+          }
+          event.preventDefault();
+        });
+
+        const body = document.getElementsByTagName('body')[0];
+
+        function loadContentInIframe(content) {
+          const iframe = document.createElement('iframe');
+          iframe.onload = function() {
+            const text = iframe.contentDocument.body.innerText;
+            const code = document.createElement('code');
+            code.innerText = text;
+            const extension = content.src.match(/\.([a-z]+)$/)[1];
+            if (extension === 'txt') {
+              code.classList.add('nohighlight');
+            } else {
+              code.classList.add(extension);
+            }
+            const pre = document.createElement('pre');
+            pre.appendChild(code);
+            pre.className = content.className;
+            content.parentElement.replaceChild(pre, content);
+            adjustPreElement(pre, code);
+            hljs.highlightBlock(pre);
+          };
+          iframe.src = content.src;
+          body.appendChild(iframe);
+        }
+
+        adjustPreElements();
+        const includes =
+          document.querySelectorAll('script[type="text/plain"]');
+        includes.forEach(loadContentInIframe);
+
+        // Simplistic determination of available height (just looks at inner
+        // slide height, not at siblings).
+        function getAvailableHeight(element) {
+          const {
+            marginBottom,
+            marginTop,
+            paddingBottom,
+            paddingTop,
+          } = window.getComputedStyle(element);
+          let parent = element;
+          while ((parent = parent.parentNode)) {
+            if (parent.tagName === 'SECTION') {
+              return (
+                parseInt(window.getComputedStyle(parent).height, 10) -
+                parseInt(marginBottom, 10) -
+                parseInt(marginTop, 10) -
+                parseInt(paddingBottom, 10) -
+                parseInt(paddingTop, 10)
+              );
+            }
+          }
+        }
+
+        function adjustPreElement(pre, code) {
+          if (
+            pre.classList.contains('left') ||
+            pre.classList.contains('center')
+          ) {
+            code.style.position = 'static';
+            return;
+          }
+          const {width: preWidth} = window.getComputedStyle(pre);
+          const codeWidth = code.offsetWidth;
+          const {
+            fontSize,
+            height: codeHeight,
+          } = window.getComputedStyle(code);
+          const availableHeight = getAvailableHeight(pre);
+          const adjustmentRatio = Math.min(
+            availableHeight ? (availableHeight / parseInt(codeHeight, 10)) : Infinity,
+            codeWidth ? (parseInt(preWidth, 10) / parseInt(codeWidth, 10)) : Infinity
+          );
+          code.style.position = 'static';
+          if (adjustmentRatio === Infinity) {
+            return;
+          }
+          const adjustedSize = parseFloat(fontSize) * adjustmentRatio;
+          code.style.fontSize = adjustedSize + 'px';
+        }
+
+        function adjustPreElements() {
+          document.querySelectorAll('pre > code').forEach(code => {
+            const pre = code.parentElement;
+            adjustPreElement(pre, code);
+          });
+        }
+
+        body.addEventListener('click', event => {
+          const target = event.target;
+          if (target.id === 'presenter-toggle') {
+            presenterMode = !presenterMode;
+            if (presenterMode) {
+              target.innerText = 'ON';
+              updatePresenterNotes(currentSlide);
+              notes.classList.remove('hidden');
+            } else {
+              target.innerText = 'OFF';
+              notes.classList.add('hidden');
+            }
+          }
+        });
+        window.addEventListener('storage', event => {
+          if (event.key === 'slide') {
+            const slide = slides[event.newValue];
+            if (slide) {
+              showSlide(slide);
+              pushState(slide)
+            } else {
+              console.warn(
+                'Unable to find slide for "slide" event value',
+                event.newValue
+              );
+            }
+          }
+        }, false);
+      })();
+    </script>
+  </body>
+</html>
