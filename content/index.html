@@ -272,6 +272,10 @@
         <!-- Comment at the end. -->
       </section>
 
+      <section>
+        <script src="something.md" type="text/markdown"></script>
+      </section>
+
     </article>
     <aside id="notes"></aside>
     <aside id="presenter" class="hidden">
@@ -402,8 +406,8 @@
           }
         }
 
-        function renderMarkdown(element) {
-          const text = dedent`${element.textContent}`;
+        function renderMarkdown(element, text) {
+          text = text || dedent`${element.textContent}`;
           const rendered = markdownit().render(text);
 
           // Instead of just blowing everything away by setting innerHTML,
@@ -425,14 +429,11 @@
           };
           visit(element);
           const [first, ...rest] = textNodes;
-          if (first) {
-            const replacement = document.createElement('div');
-            first.parentNode.replaceChild(replacement, first);
-            replacement.outerHTML = rendered;
-          }
-          rest.forEach(node => {
-            node.parentNode.removeChild(node);
-          });
+          const target = first || element;
+          const replacement = document.createElement('div');
+          target.parentNode.replaceChild(replacement, target);
+          replacement.outerHTML = rendered;
+          rest.forEach(node =>  node.parentNode.removeChild(node));
         }
 
         window.onpopstate = ({state}) => {
@@ -443,7 +444,9 @@
 
         window.onload = () => {
           document.querySelectorAll('pre code').forEach(hljs.highlightBlock);
-          document.querySelectorAll('.markdown').forEach(renderMarkdown);
+          document.querySelectorAll('.markdown').forEach(element => {
+            renderMarkdown(element);
+          });
         };
 
         document.addEventListener('keydown', event => {
@@ -477,21 +480,27 @@
         function loadContentInIframe(content) {
           const iframe = document.createElement('iframe');
           iframe.onload = function() {
-            const text = iframe.contentDocument.body.innerText;
-            const code = document.createElement('code');
-            code.innerText = text;
             const extension = content.src.match(/\.([a-z]+)$/)[1];
-            if (extension === 'txt') {
-              code.classList.add('nohighlight');
+            const text = iframe.contentDocument.body.innerText;
+            if (extension === 'md') {
+              const div = document.createElement('div');
+              content.parentNode.replaceChild(div, content);
+              renderMarkdown(div, text);
             } else {
-              code.classList.add(extension);
+              const code = document.createElement('code');
+              code.innerText = text;
+              if (extension === 'txt') {
+                code.classList.add('nohighlight');
+              } else {
+                code.classList.add(extension);
+              }
+              const pre = document.createElement('pre');
+              pre.appendChild(code);
+              pre.className = content.className;
+              content.parentElement.replaceChild(pre, content);
+              adjustPreElement(pre, code);
+              hljs.highlightBlock(pre);
             }
-            const pre = document.createElement('pre');
-            pre.appendChild(code);
-            pre.className = content.className;
-            content.parentElement.replaceChild(pre, content);
-            adjustPreElement(pre, code);
-            hljs.highlightBlock(pre);
           };
           iframe.src = content.src;
           body.appendChild(iframe);
@@ -499,7 +508,7 @@
 
         adjustPreElements();
         const includes =
-          document.querySelectorAll('script[type="text/plain"]');
+          document.querySelectorAll('script[type^="text/"]');
         includes.forEach(loadContentInIframe);
 
         // Simplistic determination of available height (just looks at inner

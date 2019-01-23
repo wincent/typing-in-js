@@ -14,6 +14,7 @@ class Handler(SimpleHTTPServer.SimpleHTTPRequestHandler):
     pass
 
 Handler.extensions_map['.mjs'] = 'text/javascript'
+Handler.extensions_map['.md'] = 'text/markdown'
 
 httpd = SocketServer.TCPServer(("", PORT), Handler)
 
