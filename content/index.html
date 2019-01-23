@@ -281,20 +281,9 @@
     </aside>
     <script src="vendor/highlight/highlight.pack.js"></script>
     <script src="vendor/markdown-it.min.js"></script>
-    <script>
-      // Hack to allow us to source CommonJS NPM packages.
-      window.exports = {
-        set default(value) {
-          if (typeof value === 'function') {
-            window.exports[value.name] = value;
-          }
-        },
-      };
-    </script>
-    <script src="vendor/dedent.js"></script>
-    <script>
+    <script type="module">
+      import dedent from '/vendor/dedent.mjs';
       (function() {
-        const {dedent} = exports;
 
         const KEY_DOWN = 40;
         const KEY_LEFT = 37;
