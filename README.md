@@ -14,6 +14,17 @@ To use presenter mode, open another window with the query string parameter "?pre
 
 In order for this to work with Chrome in fullscreen mode (which you will want on at least the audience-facing display), you need to have the "Displays have separate spaces" checkbox checked in the Mission Control pane in the System Preferences application.
 
+### Recipes
+
+* A `<section>` element is a slide.
+* HTML comments inside a slide are presenter notes.
+* The "markdown" class transforms text content into HTML.
+* Create a slide background with classes "dark photo" or "light photo".
+* `<script src="snippet.txt" type="text/plain"></script>` pulls in a snippet file.
+* `<script src="something.md" type="text/markdown"></script>` pulls in a Markdown file.
+* The "build" class hides elements until the presenter moves to the next step (ie. they make "build outs", in DOM order).
+* `<pre><code class="javascript">const yes = true;</code></pre>` produces highlighted code.
+
 ### Printing to PDF
 
 1. Fullscreen the presentation.
