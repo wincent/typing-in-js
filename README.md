@@ -10,7 +10,7 @@ Plain-text snippets (source code, ASCII-art diagrams) in the "content" directory
 
 ### Presenter mode
 
-To use presenter mode, open another window with the query string parameter "?presenter". A `presenter.url` shortcut file is supplied as a convenience for this too.
+To use presenter mode, open another window with the query string parameter "?presenter". A `presenter.url` shortcut file is supplied as a convenience for this too. Hitting "p" during a presentation also toggles presenter mode.
 
 In order for this to work with Chrome in fullscreen mode (which you will want on at least the audience-facing display), you need to have the "Displays have separate spaces" checkbox checked in the Mission Control pane in the System Preferences application.
 
