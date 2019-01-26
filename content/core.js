@@ -282,7 +282,7 @@ function adjustPreElement(pre, code) {
     codeWidth ? (parseInt(preWidth, 10) / parseInt(codeWidth, 10)) : Infinity
   );
   code.style.position = 'static';
-  if (adjustmentRatio === Infinity) {
+  if (!isFinite(adjustmentRatio)) {
     return;
   }
   const adjustedSize = parseFloat(fontSize) * adjustmentRatio;
