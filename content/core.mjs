@@ -61,7 +61,7 @@ function hideTimer() {
 }
 
 function resetBuilds(element) {
-  element.querySelectorAll('.build').forEach(build => {
+  element.querySelectorAll('.build.done').forEach(build => {
     build.classList.remove('done');
   });
 }
