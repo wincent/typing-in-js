@@ -60,16 +60,33 @@ function hideTimer() {
   clearInterval(interval);
 }
 
-function nextSlide() {
-  const nextElement = currentSlide.nextElementSibling;
-  pushState(nextElement);
-  showSlide(nextElement, true);
+function resetBuilds(element) {
+  element.querySelectorAll('.build').forEach(build => {
+    build.classList.remove('done');
+  });
 }
 
-function previousSlide() {
+function next() {
+  const nextBuild = currentSlide.querySelector('.build:not(.done)');
+  if (nextBuild) {
+    nextBuild.classList.add('done');
+  } else {
+    const nextElement = currentSlide.nextElementSibling;
+    if (nextElement) {
+      resetBuilds(currentSlide);
+      pushState(nextElement);
+      showSlide(nextElement, true);
+    }
+  }
+}
+
+function previous() {
   const previousElement = currentSlide.previousElementSibling;
-  pushState(previousElement);
-  showSlide(previousElement, true);
+  if (previousElement) {
+    resetBuilds(currentSlide);
+    pushState(previousElement);
+    showSlide(previousElement, true);
+  }
 }
 
 function showSlide(slide, broadcast) {
@@ -170,12 +187,12 @@ document.addEventListener('keydown', event => {
     case KEY_RIGHT:
     case KEY_SPACE:
     case REMOTE_NEXT:
-      nextSlide();
+      next();
       break;
     case KEY_LEFT:
     case KEY_UP:
     case REMOTE_PREV:
-      previousSlide();
+      previous();
       break;
     case KEY_P:
       togglePresenterMode();

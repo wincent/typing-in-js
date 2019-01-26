@@ -47,7 +47,7 @@ In order for this to work with Chrome in fullscreen mode (which you will want on
 #### Non-goals
 
 * Support for any browser other than the one I'm presenting on (current Chrome).
-* Support for fancy transitions or multi-step slide build-outs (if you want build out, just make another slide).
+* Support for fancy transitions.
 * Preview of next slide in presenter mode (by convention, I include a reminder of what's coming next with a final presenter note prefaced with an ellipsis).
 * Easy-printing to PDF: while this would be nice, the manual method described above is not too onerous and produces good enough results.
 * Live resizing of `pre` blocks in response to window resize events (presentation will be full-screen anyway).
