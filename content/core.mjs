@@ -134,6 +134,22 @@ function pushState(slide) {
   }
 }
 
+function setBackground(element) {
+  const classList = element.classList;
+  classList.add('photo');
+  if (classList.contains('dark')) {
+    const tint = `
+      linear-gradient(
+        rgba(0, 0, 0, 0.5),
+        rgba(0, 0, 0, 0.5)
+      )
+    `;
+    element.style.backgroundImage = `${tint}, url(${element.dataset.photo})`;
+  } else {
+    element.style.backgroundImage = `url(${element.dataset.photo})`;
+  }
+}
+
 function renderMarkdown(element, text) {
   text = text || dedent`${element.textContent}`;
   const rendered = markdownit().render(text);
@@ -171,6 +187,7 @@ window.onpopstate = ({state}) => {
 };
 
 window.onload = () => {
+  document.querySelectorAll('[data-photo]').forEach(setBackground);
   document.querySelectorAll('pre code').forEach(hljs.highlightBlock);
   document.querySelectorAll('.markdown').forEach(element => {
     renderMarkdown(element);

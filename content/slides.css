@@ -1,12 +1,1 @@
-.sample-photo {
-  /* -webkit-filter: blur(10px); */
-  /* -webkit-filter: blur(5px); */
-  /* -webkit-filter: blur(2px); */
-  background-image: url(road.jpg);
-  /* If normal "light" class is not enough for readability: */
-  /* color: #fff; */
-  /* text-shadow: 2px 2px 20px #000, */
-  /*             -2px 2px 20px #000, */
-  /*             2px -2px 20px #000, */
-  /*             -2px -2px 20px #000; */
-}
+/* Custom CSS. */
