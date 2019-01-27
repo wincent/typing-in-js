@@ -145,6 +145,14 @@ function setBackground(element) {
       )
     `;
     element.style.backgroundImage = `${tint}, url(${element.dataset.photo})`;
+  } else if (classList.contains('light')) {
+    const tint = `
+      linear-gradient(
+        rgba(255, 255, 255, 0.5),
+        rgba(255, 255, 255, 0.5)
+      )
+    `;
+    element.style.backgroundImage = `${tint}, url(${element.dataset.photo})`;
   } else {
     element.style.backgroundImage = `url(${element.dataset.photo})`;
   }
