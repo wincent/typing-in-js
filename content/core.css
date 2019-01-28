@@ -148,6 +148,7 @@ tr:nth-child(2n) {
 .photo,
 .photo:before {
   background-position: center;
+  background-repeat: no-repeat;
   background-size: cover;
 }
 
@@ -159,6 +160,16 @@ tr:nth-child(2n) {
   top: 0;
   width: 100%;
   z-index: -1;
+}
+
+.blur.photo {
+  background-position: 100000000px;
+}
+
+.blur.photo:before {
+  filter: blur(2px);
+  background-image: inherit;
+  background-position: center;
 }
 
 .slides {
