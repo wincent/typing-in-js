@@ -2,61 +2,14 @@
  * Custom JS.
  */
 
-/**
- * Inappropriately "clever" (stupid) wrappers to make working with Rough
- * API a little more concise.
- */
-
-function makeNamedFunction(name, body) {
-  return {[name](...args) {return body(...args)}}[name];
-}
-
-const [
+import {
   curve,
   line,
   polygon,
   rectangle,
-] = [
-  'curve',
-  'line',
-  'polygon',
-  'rectangle',
-].map(name => {
-  return makeNamedFunction(name, (...args) => {
-    return function(context) {
-      return context[name](...args);
-    }
-  });
-});
-
-function render(selector, instructions) {
-  const svg = document.querySelector(selector);
-  if (svg) {
-    const r = rough.svg(svg);
-    instructions.forEach(step => {
-      svg.appendChild(step(r));
-    });
-  }
-}
-
-/**
- * Other helpers.
- */
-
-const namespace = 'http://www.w3.org/2000/svg';
-
-function text(content, attributes) {
-  return function () {
-    const g = document.createElementNS(namespace, 'g');
-    const t = document.createElementNS(namespace, 'text');
-    Object.entries(attributes).forEach(([key, value]) => {
-      t.setAttribute(key, value);
-    });
-    t.appendChild(document.createTextNode(content));
-    g.appendChild(t);
-    return g;
-  }
-}
+  render,
+  text,
+} from '/lib/svg.mjs';
 
 // Working with 400 x 300 viewbox.
 const skill = [
@@ -77,6 +30,7 @@ const skill = [
     stroke: 'green',
   }),
 ];
+
 render('#utility-chart-skill', skill);
 
 render('#utility-chart-size', [
