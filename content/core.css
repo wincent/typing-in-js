@@ -99,8 +99,16 @@ tr:nth-child(2n) {
   background-color: #f6f8fa;
 }
 
+.left {
+  align-self: left;
+}
+
 .center {
   align-self: center;
+}
+
+.right {
+  align-self: right;
 }
 
 .current {
