@@ -193,6 +193,25 @@ function renderMarkdown(element, text) {
   rest.forEach(node =>  node.parentNode.removeChild(node));
 }
 
+/**
+ * Apply the "build" class to all children but the first.
+ *
+ * Some special cases:
+ *
+ * - If the child is a list, "build" is applied to its children instead of
+ *   itself.
+ */
+function autobuild(element) {
+  const children = Array.from(element.children);
+  for (let i = 1; i < children.length; i++) {
+    const child = children[i];
+    children[i].classList.add('build');
+    if (['UL', 'OL'].includes(child.nodeName)) {
+      autobuild(child);
+    }
+  }
+}
+
 window.onpopstate = ({state}) => {
   if (state && state.index != null) {
     showSlide(slides[state.index], true);
@@ -210,6 +229,7 @@ window.onload = () => {
   document.querySelectorAll('.markdown').forEach(element => {
     renderMarkdown(element);
   });
+  document.querySelectorAll('.autobuild').forEach(autobuild);
 };
 
 document.addEventListener('keydown', event => {
