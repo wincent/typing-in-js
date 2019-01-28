@@ -137,6 +137,24 @@ tr:nth-child(2n) {
   flex-grow: 1;
 }
 
+.black-box {
+  color: white;
+  background-color: rgba(0, 0, 0, .5);
+  padding: 15px 50px;
+  -webkit-text-stroke: 0;
+}
+
+.white-box {
+  background-color: rgba(255, 255, 255, .5);
+  padding: 15px 50px;
+  -webkit-text-stroke: 0;
+}
+
+.inset {
+  margin: 0 50px;
+}
+
+
 .hidden {
   display: none !important;
 }
