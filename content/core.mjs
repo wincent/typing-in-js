@@ -158,6 +158,11 @@ function setBackground(element) {
   }
 }
 
+function dedentTextContent(element) {
+  const text = element.textContent;
+  element.textContent = dedent`${text}`;
+}
+
 function renderMarkdown(element, text) {
   text = text || dedent`${element.textContent}`;
   const rendered = markdownit().render(text);
@@ -196,7 +201,12 @@ window.onpopstate = ({state}) => {
 
 window.onload = () => {
   document.querySelectorAll('[data-photo]').forEach(setBackground);
-  document.querySelectorAll('pre code').forEach(hljs.highlightBlock);
+  adjustPreElements();
+  document.querySelectorAll('script[type^="text/"]').forEach(loadContentInIframe);
+  document.querySelectorAll('pre > code').forEach(element => {
+    dedentTextContent(element);
+    hljs.highlightBlock(element);
+  });
   document.querySelectorAll('.markdown').forEach(element => {
     renderMarkdown(element);
   });
@@ -258,11 +268,6 @@ function loadContentInIframe(content) {
   iframe.src = content.src;
   body.appendChild(iframe);
 }
-
-adjustPreElements();
-const includes =
-  document.querySelectorAll('script[type^="text/"]');
-includes.forEach(loadContentInIframe);
 
 // Simplistic determination of available height (just looks at inner
 // slide height, not at siblings).
