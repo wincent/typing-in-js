@@ -85,6 +85,19 @@ strong {
   font-weight: 500;
 }
 
+table {
+  border-collapse: collapse;
+}
+
+td, th {
+  border: 1px solid #dfe2e5;
+  padding: 6px 13px;
+}
+
+tr:nth-child(2n) {
+  background-color: #f6f8fa;
+}
+
 .center {
   align-self: center;
 }
