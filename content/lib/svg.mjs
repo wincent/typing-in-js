@@ -36,8 +36,32 @@ export function render(selector, instructions) {
 
 const namespace = 'http://www.w3.org/2000/svg';
 
-export function text(content, attributes) {
+export function text(content, x, y, options) {
   return function () {
+    const attributes = {
+      x,
+      y,
+      style: {'font-family': '"Hannotate TC"'},
+    };
+
+    // Style properties.
+    ['fill'].forEach(property => {
+      if (options[property]) {
+        attributes.style[property] = options[property];
+      }
+    });
+    attributes.style = Object.entries(attributes.style).map(([key, value]) => {
+      return `${key}: ${value}`;
+    }).join('; ');
+
+    // Other attributes.
+    ['transform'].forEach(attribute => {
+      if (options[attribute]) {
+        attributes[attribute] = options[attribute];
+      }
+    });
+
+
     const g = document.createElementNS(namespace, 'g');
     const t = document.createElementNS(namespace, 'text');
     Object.entries(attributes).forEach(([key, value]) => {

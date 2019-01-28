@@ -15,10 +15,10 @@ import {
 const skill = [
   line(50, 0, 50, 200), // Y-axis.
   polygon([[50, 0], [40, 10], [60, 10]], {fill: 'black'}),
-  text('value', {x: 0, y: 115, transform: 'rotate(270, 40, 100), translate(0, -20)'}),
+  text('value', 0, 115, {transform: 'rotate(270, 40, 100), translate(0, -20)'}),
   line(50, 200, 400, 200), // X-axis.
   polygon([[400, 200], [390, 190], [390, 210]], {fill: 'black'}),
-  text('skill', {x: 200, y: 250, style: 'fill: green'}),
+  text('skill', 200, 250, {fill: 'green'}),
   curve([
     [50, 200], // No skill, no value.
     [75, 175],
@@ -36,7 +36,7 @@ render('#utility-chart-skill', skill);
 render('#utility-chart-size', [
   ...skill,
 
-  text('team/code size', {x: 120, y: 280, style: 'fill: red'}),
+  text('team/code size', 120, 280, {fill: 'red'}),
   curve([
     [50, 175], // No size, not so much value.
     [75, 170],
