@@ -1,0 +1,295 @@
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto Mono'), local('RobotoMono-Regular'), url(vendor/fonts/robotomono/RobotoMono-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Nanum Pen Script';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Nanum Pen'), local('NanumPen'), url(vendor/fonts/nanum/NanumPenScript-Regular.ttf) format('truetype');
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: rgba(100, 100, 100, .25);
+}
+
+article {
+  position: relative;
+}
+
+body {
+  font-family: sans-serif;
+  font-size: 200%;
+  font-weight: 200;
+  margin: 0;
+}
+
+h1,
+h2,
+h3 {
+  text-align: center;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: 600;
+}
+
+h2 {
+  font-weight: 500;
+}
+
+h3 {
+  font-weight: 400;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+iframe {
+  display: none;
+  height: 0;
+  width: 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+li {
+  margin-bottom: 1rem;
+}
+
+pre {
+  padding: .5em;
+}
+
+pre > code {
+  /* Want to measure the natural size of the text, unconstrained by flow. */
+  position: absolute;
+}
+
+pre > code.hljs {
+  /* Don't let hljs throw off our auto-resizing calculations. */
+  padding: 0;
+}
+
+tt,
+code,
+kbd,
+samp {
+  font-family: 'Roboto Mono', monospace;
+}
+
+section {
+  --horizontal-padding: 60px;
+  --vertical-padding: 40px;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 2 * var(--vertical-padding));
+  justify-content: center;
+  opacity: 0;
+  overflow: hidden;
+  padding: var(--vertical-padding) var(--horizontal-padding);
+  position: absolute;
+  visibility: hidden;
+  transition: visiblility 0s, opacity .25s linear;
+  width: calc(100vw - 2 * var(--horizontal-padding));
+}
+
+strong {
+  font-weight: 500;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td, th {
+  border: 1px solid #dfe2e5;
+  padding: 6px 13px;
+}
+
+tr:nth-child(2n) {
+  background-color: #f6f8fa;
+}
+
+.left {
+  align-self: left;
+}
+
+.center {
+  align-self: center;
+}
+
+.right {
+  align-self: right;
+}
+
+.current {
+  opacity: 1;
+  visibility: visible;
+}
+
+.build {
+  visibility: hidden;
+}
+
+.build.done {
+  visibility: visible;
+}
+
+.dark {
+  color: #fff;
+  -webkit-text-stroke: 1px #000;
+}
+
+.light {
+  -webkit-text-stroke: 1px #fff;
+}
+
+.full {
+  flex-grow: 1;
+}
+
+.black-box {
+  color: white;
+  background-color: rgba(0, 0, 0, .5);
+  padding: 15px 50px;
+  -webkit-text-stroke: 0;
+}
+
+.white-box {
+  background-color: rgba(255, 255, 255, .5);
+  padding: 15px 50px;
+  -webkit-text-stroke: 0;
+}
+
+.inset {
+  margin: 0 50px;
+}
+
+
+.hidden {
+  display: none !important;
+}
+
+.huge {
+  font-size: 10rem;
+  text-align: center;
+}
+
+.important {
+  background-color: yellow;
+}
+
+.left {
+  align-self: flex-start;
+}
+
+.photo,
+.photo:before {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.photo:before {
+  content: ' ';
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+.blur.photo {
+  background-position: 100000000px;
+}
+
+.blur.photo:before {
+  filter: blur(2px);
+  background-image: inherit;
+  background-position: center;
+}
+
+.slides {
+  height: 100vh;
+  width: 100vw;
+}
+
+.two-columns {
+  display: flex;
+  justify-content: space-around;
+}
+
+.two-columns > div {
+  flex-basis: calc(50vw - 100px);
+}
+
+.flash {
+  animation-name: flash;
+  animation-duration: .3s;
+}
+
+@keyframes flash {
+  from { background: red;/*rgba(240, 230, 140, .8);*/ } /* khaki */
+  to   { background: default; }
+}
+
+#presenter {
+  background: rgba(255, 255, 255, .75);
+  border-right: 1px solid #ddd;
+  display: inline-block;
+  font-size: 1rem;
+  left: 0;
+  padding: 10px;
+  position: fixed;
+  user-select: none;
+}
+
+#notes {
+  background-color: rgba(230, 230, 230, .9);
+  border-left: 1px solid #aaa;
+  bottom: 0;
+  box-shadow: 20px 10px 50px 40px rgba(0, 0, 0, .25);
+  max-width: 50vw;
+  padding: 16px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 800px;
+}
+
+#notes p:first-child {
+  margin-top: 0;
+}
+
+#notes p:last-child {
+  margin-bottom: 0;
+}
+
+#presenter {
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  top: 0;
+}
+
+#timer {
+  bottom: 0;
+  color: #000;
+  cursor: pointer;
+  font-size: 20vw;
+  opacity: .25;
+  position: fixed;
+  right: 10px;
+  text-align: center;
+  user-select: none;
+}

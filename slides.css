@@ -1,0 +1,81 @@
+/* Custom CSS. */
+
+svg {
+  max-height: 90vh;
+  max-width: 90vw;
+  overflow: visible;
+}
+
+/* Since switching monospaced fonts, the table is just a wee bit too cramped. */
+table code {
+  font-size: .9em;
+}
+
+.yes {
+  animation: blinking 1s step-start infinite;
+  font-size: 50vw;
+  text-align: center;
+}
+
+@keyframes blinking {
+  50% {
+    opacity: 0;
+  }
+}
+
+.troll-face h2:after {
+  content: " ";
+  display: inline-block;
+  background-image: url(images/troll-face.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: relative;
+  top: .75em;
+  width: 2em;
+  height: 2em;
+}
+
+.tiny {
+  font-size: .5em;
+}
+
+.state-of-js {
+  background-color: #222323;
+}
+
+.screenshot{
+  background-size: contain;
+}
+
+.try {
+  bottom: 1rem;
+  display: flex;
+  font-size: 1rem;
+  justify-content: flex-end;
+  position: absolute;
+  right: 1rem;
+}
+
+.try:before {
+  content: "Playground:";
+  align-self: center;
+}
+
+.try a {
+  background-color: rgba(240, 240, 240, 0.5);
+  border-radius: .5rem;
+  border: 1px solid #eee;
+  display: inline-block;
+  margin: 0 0 0 1rem;
+  padding: 10px;
+}
+
+.haters {
+  background-image: url(images/hate.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  min-height: 20%;
+}

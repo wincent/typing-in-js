@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Presentation title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base target="_blank">
+    <link rel="stylesheet" href="core.css">
+    <link rel="stylesheet" href="slides.css">
+    <link rel="stylesheet" href="vendor/highlight/styles/googlecode.css">
+  </head>
+  <body>
+    <article id="slides">
+
+      <!-- Blank side for use during set-up. -->
+      <section>
+      </section>
+
+      <section class="markdown dark" data-photo="sample/road.jpg">
+        # Talk title
+        ## Greg Hurrell
+        ### @wincent
+        <!-- I'm Greg Hurrell. -->
+      </section>
+
+      <section>
+        <pre><code class="javascript">const app = (data) =&gt; view;</code></pre>
+        <!-- A slide with code in it. -->
+        <!-- Classname (eg. "graphql", "json" etc) determines syntax highlighting. -->
+      </section>
+
+      <section>
+        <img class="full" src="sample/view-hierarchy.svg" />
+        <!-- A slide with an SVG in it. -->
+      </section>
+
+      <section>
+        <script src="sample/graphql-query.txt" type="text/plain"></script>
+        <!-- Loading a sample from a separate file. Always use type="text/plain". -->
+      </section>
+
+      <section class="markdown autobuild">
+        # This is an example of slide written in Markdown
+        ## Subtitle
+
+        <!-- Comment in the middle. -->
+
+        1. Some steps.
+        2. To follow.
+
+        <!-- Comment at the end. -->
+      </section>
+
+      <section>
+        <script src="sample/something.md" type="text/markdown"></script>
+      </section>
+
+      <section>
+        <svg id="utility-chart-skill" viewBox="0 0 400 300"></svg>
+      </section>
+
+      <section>
+        <svg id="utility-chart-size" viewBox="0 0 400 300"></svg>
+      </section>
+
+      <section>
+        <p>A slide with a build on it.</p>
+        <p class="build">A slide with a build on it.</p>
+        <p class="build">One more build.</p>
+        <p class="build">Final build.</p>
+      </section>
+
+      <section class="markdown">
+        # That's all folks!
+      </section>
+
+    </article>
+    <aside id="notes"></aside>
+    <aside id="presenter" class="hidden">
+      Presenter mode: <strong id="presenter-toggle">ON</strong>
+    </aside>
+    <aside id="timer" class="hidden">
+    </aside>
+    <script src="vendor/highlight/highlight.pack.js"></script>
+    <script src="vendor/markdown-it.min.js"></script>
+    <script src="vendor/rough.js"></script>
+    <script src="core.mjs" type="module"></script>
+    <script src="slides.mjs" type="module"></script>
+  </body>
+</html>
+<!-- vim: set tw=0: -->
