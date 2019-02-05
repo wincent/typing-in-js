@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Typing in JS</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base target="_blank">
+    <link rel="stylesheet" href="core.css">
+    <link rel="stylesheet" href="slides.css">
+    <link rel="stylesheet" href="vendor/highlight/styles/googlecode.css">
+  </head>
+  <body>
+    <article id="slides">
+
+      <!-- Blank side for use during set-up. -->
+      <section>
+      </section>
+
+      <section class="photo" data-photo="images/typing.jpg">
+        <div class="markdown black-box inset">
+          # Typing in JS
+          ### Greg Hurrell
+          ### [@wincent](https://github.com/wincent/)
+        </div>
+        <!-- I'm Greg Hurrell. -->
+      </section>
+
+      <section>
+        <h1>Quiz 📋</h1>
+      </section>
+
+      <section>
+        <pre><code class="javascript">
+          [1, NaN, 'foo'] + {a: true}
+        </code></pre>
+        <pre class="javascript build"><code>
+          👉🏼  '1,NaN,foo[object Object]'
+        </code></pre>
+      </section>
+
+      <section>
+        <pre><code class="javascript">
+          10 / new Date()
+        </code></pre>
+        <pre><code id="quiz-4" class="javascript build">
+          👉🏼  6.454428654138961e-12
+        </code></pre>
+        <!-- Misleading hints: typeof new Date() is object -->
+        <!-- 1 / {} is NaN -->
+      </section>
+
+      <section>
+        <pre><code class="javascript">
+          Math.min('10', [3])
+        </code></pre>
+        <pre class="javascript build"><code>
+          👉🏼  3
+        </code></pre>
+      </section>
+
+      <section>
+        <pre><code class="javascript">
+          true * false
+        </code></pre>
+        <pre class="javascript build"><code>
+          👉🏼  0
+        </code></pre>
+      </section>
+
+      <section class="troll-face autobuild">
+        <h1>My background</h1>
+        <h2>Or, why this is going to be a totally unbiased presentation</h2>
+        <ul>
+          <li>Sat next to the Flow team at Facebook.</li>
+          <li>Early adopter (2014) of Flow prior to open source release.</li>
+          <li>Worked on frameworks and very large apps with complex typing requirements (in Flow).</li>
+          <li>5 years working with Flow.</li>
+          <li><span class="tiny">5 days working with TypeScript.</span></li>
+        </ul>
+        <!-- Before my background, some questions for audience. -->
+        <!-- How many of you have used a language with static types before? -->
+        <!-- How many of you have used TypeScript? -->
+        <!-- How many of you have used Flow? -->
+      </section>
+
+      <section class="blur dark photo" data-photo="images/playing.jpg">
+        <div class="markdown black-box left">
+          # Me using Flow.
+        </div>
+        <!-- You might think that I am a Flow expert after using it for 5 years. -->
+        <!-- But even though I sat next to the Flow team, there was a big difference between me and them. -->
+      </section>
+
+      <section class="photo" data-photo="images/phds.jpg">
+        <div class="markdown white-box">
+          # The Flow team.
+        </div>
+        <!-- This is what the Flow team is like. Actually, these are Flow interns. -->
+        <!-- To be a intern on the Flow team, you pretty much have to have a PhD. -->
+      </section>
+
+      <section class="markdown">
+        # Should I use Flow?
+        # Or TypeScript?
+        <!-- I want to start with the question that is burning on everybody's mind. -->
+        <!-- So I want to get address that right away. -->
+      </section>
+
+      <section>
+        <p class="yes">
+          Yes
+        </p>
+      </section>
+
+      <section class="dark photo" data-photo="images/cart.jpg">
+        <div class="markdown black-box center">
+          # Vanilla JS 🏚
+
+          * Dynamic.
+          * Runs almost everywhere.
+          * Turing complete!
+          * Empires have been built on JavaScript...
+          * ...but it can be hard to do really big, robust things with it.
+        </div>
+        <!-- JS is a dynamic language. It runs almost everywhere. It is turing complete. -->
+        <!-- You can get a lot of stuff done with it. -->
+      </section>
+
+      <section class="dark photo" data-photo="images/car.jpg">
+        <div class="markdown black-box center">
+          # TypeScript 🔥
+
+          * Modern JS designed with speed, productivity and safety in mind.
+          * A big upgrade from untyped JavaScript.
+        </div>
+        <!-- Moving to TypeScript is like swapping out your horse and cart for a modern sports car. -->
+      </section>
+
+      <section class="dark photo" data-photo="images/pickup.jpg">
+        <div class="markdown black-box center">
+          # Flow 🔧
+
+          * Deadly serious type system for large codebases.
+          * A big upgrade from untyped JavaScript.
+        </div>
+        <!-- Moving to Flow is like switching from a horse and cart to a shiny new all-terrain vehicle. -->
+      </section>
+
+      <section>
+        <div class="markdown">
+          # Type systems overview
+        </div>
+        <svg class="build" id="pipeline" viewBox="0 0 400 100"></svg>
+      </section>
+
+      <section>
+        <h1>Type annotations</h1>
+        <pre><code class="javascript">
+          function increment(x: number): number {
+            return x + 1;
+          }
+
+          increment(1); // OK
+          increment(null); // Cannot call `increment` with `null`
+        </code></pre>
+        <div class="try">
+          <a href="https://flow.org/try/#0GYVwdgxgLglg9mABDSAnApgW3WKAKADwC5EwRMAjdVAShLMusQG8AoRRDKEVJAxANSIAjAG5WAX1asUEDNlx5hNUYgD0axAHkA0jLRYc+MgBsTK9ZoDCAQzBg4URBBtnEAA1nyj7xAHcYKAALD1MTdyA">Flow</a>
+          <a href="https://www.typescriptlang.org/play/#src=function%20increment(x%3A%20number)%3A%20number%20%7B%0D%0A%20%20return%20x%20%2B%201%3B%0D%0A%7D%0D%0A%0D%0Aincrement(1)%3B%0D%0Aincrement(null)%3B">TypeScript</a>
+        </div>
+        <!-- Type annotations permit us to catch incorrect calls. -->
+        <!-- Difference between Flow and Typescript: TS needs strictNullChecks otherwise assumes everything is nullable. -->
+        <!-- In practice, everybody turns this on, along with a number of other options that make TypeScript closer to being sound. -->
+        <!-- You'll get these options by default if you set up a new project with `tsc --init`. -->
+      </section>
+
+      <section>
+        <h1>Implicit return types</h1>
+        <pre><code class="javascript">
+          function increment(x: number) {
+            return x + 1;
+          }
+
+          increment(1); // OK
+          increment(null); // Cannot call `increment` with `null`
+        </code></pre>
+        <div class="try">
+          <a href="https://flow.org/try/#0GYVwdgxgLglg9mABDSAnApgW3WKAKADwC5EwRMAjdVASkQG8AoRRDKEVJAxAakQEYA3IwC+jRiggZsuPPxqDEAeiWIA8gGkJaLDnxkANgYXLVAYQCGYMHCiIIFo4gAGk6XueIA7jCgALF0MDZyA">Flow</a>
+          <a href="https://www.typescriptlang.org/play/#src=function%20increment(x%3A%20number)%20%7B%0D%0A%20%20return%20x%20%2B%201%3B%0D%0A%7D%0D%0A%0D%0Aincrement(1)%3B%0D%0Aincrement(null)%3B">TypeScript</a>
+        </div>
+        <!-- The example shows how it is not necesray to explicitly annotate the return type; it can be inferred. -->
+        <!-- This point is generally true of JS type systems: they are largely optional, and do as much as they can via inference. -->
+      </section>
+
+      <section>
+        <h1>Catching implementation errors</h1>
+        <pre><code class="javascript">
+          function increment(x: number): string {
+            return x + 1;
+          }
+
+          // Cannot return `x + 1` because
+          // number is incompatible with string
+        </code></pre>
+        <div class="try">
+          <a href="https://flow.org/try/#0GYVwdgxgLglg9mABDSAnApgW3WKAKADwC5EwRMAjdVAShIGcpUUBzRAbwChFEMoRUSAogDUiAIwBuTgF9OAenmIAwgEMwYOFF7p+gxAANhY8QcRUIqkPXQKlZStWT1kkOJgAOq2BQA26RAB3GCgAC0RGZjAWIA">Flow</a>
+          <a href="https://www.typescriptlang.org/play/#src=function%20increment(x%3A%20number)%3A%20string%20%7B%0D%0A%20%20return%20x%20%2B%201%3B%0D%0A%7D%0D%0A">TypeScript</a>
+        </div>
+        <!-- Type annotations do more than catch incorrect calls. -->
+        <!-- Even in the absence of any calls, the type system can alert us when our code doesn't do what we've said it does. -->
+      </section>
+
+      <section>
+        <h1>Compiler output</h1>
+        <pre><code class="javascript">
+          function increment(x) {
+            return x + 1;
+          }
+
+          increment(1);
+          increment(null);
+        </code></pre>
+        <!-- No type annotations. Runs everywhere that JavaScript runs. -->
+      </section>
+
+      <section class="markdown autobuild">
+        # Benefits of type systems 🌈🦄💘
+
+        * Catch programming errors at build-time.
+        * No runtime overhead.
+        * Provide always-in-sync "documentation".
+        * Power intelligent autocomplete, code navigation and other IDE features.
+        * Enable type-assisted transforms and optimizations.
+        * Complementary to test suites, which can therefore be made lighter.
+        * Fail faster/earlier than test suites, saving expensive CI runs.
+      </section>
+
+      <section class="markdown autobuild">
+        # Costs of type systems 💸⌛️🌨
+
+        * Impose new tooling requirements (linting, parsing, formatting etc).
+        * Verbosity.
+        * Learning curve.
+      </section>
+
+      <section class="markdown">
+        # 🥤  Is the juice worth the squeeze? 🍋
+      </section>
+
+      <section>
+        <svg id="utility-chart-skill" viewBox="0 0 400 300"></svg>
+        <!-- This chart shows the usefulness of the type system relative to the skill of the programmer using it. -->
+      </section>
+
+      <section>
+        <svg id="utility-chart-size" viewBox="0 0 400 300"></svg>
+        <!-- This chart shows how useful the type system becomes as you grow your team and your app. -->
+        <!-- There comes a point at which the benefit starts to ramp up exponentially, because without the type system, the cost of working at scale without collapsing under your own weight grows. -->
+        <!-- The type system allows people to interface with APIs and code that they don't necessarily have direct knowledge of, and they can't have it, because it's too big. -->
+      </section>
+
+      <section class="markdown">
+        # Basic types
+
+        | Type | Flow | TypeScript |
+        | ---- | ---- | ---------- |
+        | Boolean | `boolean` | `boolean` |
+        | String | `string` | `string` |
+        | Number | `number` | `number` |
+        | Array of `T` | `Array&lt;T&gt;` | `T[]` |
+        | Tuple | `[T, U]` | `[T, U]` |
+      </section>
+
+      <section>
+        <pre><code class="javascript">
+          function process(input: Array&lt;🍩&gt;): Array<💩> {
+            return input.map(eatDonut);
+          }
+
+        </code></pre>
+      </section>
+
+      <section class="markdown">
+        # Complex and compound types
+
+        | Type | Flow | TypeScript |
+        | ---- | ---- | ---------- |
+        | Union of `T` &amp; `U` | `T | U` | `T | U` |
+        | Intersection of `T` &amp; `U` | `T &amp; U` | `T &amp; U` |
+        | Function from `T` to `U` | `(T) =&gt; U` | `(t: T) =&gt; U` |
+        | Object | `{}` | `object` |
+        | Exact object | `{|a: T|}` | `{}` |
+        | Map | `{[a] : T}` | `{[a: A]: T}` |
+        | Enum | 🤔 | `enum T {A, B}` |
+
+        <!-- Note that Flow will be making exact object types the default. Another example of preferring strictness. -->
+        <!-- TypeScript enums are numbers, like C enums. -->
+      </section>
+
+      <section>
+        <pre><code class="javascript">
+          type Fruit = 🍓 | 🍏 | 🍉;
+
+          function eat(fruit: Fruit) {
+            // Eat the fruit...
+          }
+        </code></pre>
+      </section>
+
+      <section class="markdown">
+        # Special types
+
+        | Type | Flow | TypeScript |
+        | ---- | ---- | ---------- |
+        | Unsafe | `any` | `any` |
+        | Unknown | `mixed` | `unknown` |
+        | Nothing | `void` | `void` |
+        | Impossible | 🤔 | `never` |
+        | Nullable `T` | `?T` | `T | null | undefined` |
+        | Type cast to `T` | `(a: T)` | `(a as T)` |
+
+        <!-- The `never` type is for things like the return type of a function that never returns. Example on next slide.-->
+      </section>
+
+      <section>
+        <pre><code class="javascript">
+          function runEventLoop(): never {
+            while (true) {
+              processInput();
+              updateGameState();
+              renderFrame();
+            }
+          }
+        </code></pre>
+      </section>
+
+      <section class="markdown">
+        # "Imposter Syndrome" types
+
+        | Type | Flow | TypeScript |
+        | ---- | ---- | ---------- |
+        | Bounded polymorphism | `&lt;T: U&gt;` | `&lt;T extends U&gt;` |
+        | Covariance | `{+a: T}` | `{readonly a: T}` |
+        | Contravariance | `{-a: T}` | 🤔 |
+        <!-- Example of bounded polymorphism on next slide. -->
+      </section>
+
+      <section>
+        <pre><code class="javascript">
+          class FastFood&lt;T: 🍔 | 🍕&gt; {
+            _food: T;
+
+            constructor(food: T) {
+              this._food = food;
+            }
+
+            serve(): T {
+              return this._food;
+            }
+          }
+        </code></pre>
+        <!-- Note type of T here is not "burger or pizza". -->
+        <!-- It is, "burger" or it is "pizza", dependending on how it gets
+          constructed. -->
+      </section>
+
+      <section class="markdown">
+        # Utility types
+
+        | Type | Flow | TypeScript |
+        | ---- | ---- | ---------- |
+        | Non-nullable T | `$NonMaybeType&lt;T&gt;` | `NonNullable&lt;T&gt;` |
+        | Return type of F | `$Call&lt;typeof F&gt;` | `ReturnType&lt;typeof F&gt;` |
+        | Read-only T | `$ReadOnly&lt;T&gt;` | `Readonly&lt;T&gt;` |
+        | Keys of T | `$Keys&lt;T&gt;` | `keyof T` |
+        | Values of T | `$Values&lt;T&gt;` | `T[keyof T]` |
+        | Property type (named) | `$PropertyType&lt;T, 'prop'&gt;` | `T['prop']` |
+        | Property type (matching `K`) | `$ElementType&lt;T, K&gt;` | `T[K]` |
+        | Exclusion (`T` without properties of `U`) | `$Rest&lt;T, U&gt;` | `Exclude&lt;T, U&gt;` |
+        <!-- Example of non-nullable on next slide -->
+      </section>
+
+      <section>
+        <pre><code class="javascript">
+          function nullthrows&lt;T&gt;(value: T): NonNullable&lt;T&gt; {
+            if (value == null) {
+              throw new Error('Unexpected null-ish value');
+            }
+            return value as NonNullable&lt;T&gt;;
+          }
+        </code></pre>
+      </section>
+
+      <section class="markdown">
+        # Syntax
+
+        | Syntax           | Description |
+        | -------------------- | ---- |
+        | `type A = T`; | Type alias (`T` may be complex) |
+        | `interface I { a: T; }` | Declaration that property `a` of type `T` exists in interface `I` |
+        | `implements I` | Declaration that a class implements the `I` interface |
+      </section>
+
+      <section class="markdown">
+        # Conditional types &amp; type guards (TypeScript)
+
+        | Annotation           | Description |
+        | -------------------- | ---- |
+        | `T extends U ? X : Y` | `X` when `T` is assignable to `U`, and `Y` otherwise |
+        | `var is T` | Type predicate that will be true whe `var` is of type `T` |
+
+        `*` Flow implements type predicates too, using the `%checks` syntax.
+        <!-- Example of type guard on next slide. -->
+      </section>
+
+      <section>
+        <pre><code class="javascript">
+          function isObject(value: unknown): value is object {
+            return (
+              value !== null &&
+              Object.prototype.toString.call(value) === '[object Object]'
+            );
+          }
+        </code></pre>
+      </section>
+
+      <section class="markdown">
+        # But really, which should I use? 🤔
+      </section>
+
+      <section class="state-of-js photo screenshot" data-photo="images/state-of-js.png">
+        <!-- -->
+      </section>
+
+      <section class="photo screenshot" data-photo="images/jest-typescript.png">
+        <!-- -->
+      </section>
+
+      <section class="photo screenshot" data-photo="images/yarn-typescript.png">
+        <!-- -->
+      </section>
+
+      <section class="markdown">
+        | TypeScript | Flow |
+        | ---------- | ---- |
+        | ✅ Thriving open-source community | ❌ Weaker engagement with community |
+        | ✅ Great developer experience | 🆗 Weaker out-of-the-box experience |
+        | ✅ [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped) | 🆗 [flow-typed](https://github.com/flow-typed/flow-typed) |
+        | ✅ Compatibility with Babel, Prettier, ESLint etc | ✅ Compatibility with Babel, Prettier, ESLint etc |
+        | 🆗 Support for React | ✅ First-class support for React |
+        | 🆗 Productive by default | ✅ Sound by default |
+        | 🆗 Works with huge repos | ✅ Crushes huge repos |
+        | ❌ Microsoft is Evil™ | ❌ Facebook is Evil™ |
+      </section>
+
+      <section class="markdown autobuild">
+        # I ❤️ Flow
+
+        * [Flow linting](https://flow.org/en/docs/linting/): `sketchy-null`, `untyped-import` etc.
+        * [`@flow strict`](https://flow.org/en/docs/strict/), and `strict-local`: per-file opt-in to stronger safety guarantees.
+        * `flow lsp`: [Language Server Protocol](https://microsoft.github.io/language-server-protocol/) implementation.
+        <!-- "sketchy-null" warns about truthiness checks that could produce false negatives for 0, empty strings etc. -->
+        <!-- "untyped-import" warns you if you accidentally import an "any" from an untyped module. -->
+      </section>
+
+      <section class="markdown autobuild">
+        # The reports of Flow's death are greatly exaggerated &#x2620;
+
+        * Facebook is heavily invested in Flow despite a couple of open source projects migrating to TypeScript.
+        * Facebook has *massive* React applications (thousands of components) in a monorepo containing millions of files, with a high % of Flow coverage.
+        * Flow, which places great emphasis on soundness and speed at scale, is literally the only option that can possibly work for Facebook for the foreseeable future.
+        * Open source projects at FB operate relatively independently, especially projects with large community involvement like Yarn, so their decision probably has nothing to do "corporate governance".
+      </section>
+
+      <section class="markdown autobuild">
+        # Recommendations ✅
+
+        * Either system can be adopted gradually (per-package, and even per-file).
+        * The cost of correcting a mistake is not prohibitive.
+        * Flow is a "better" type system (soundness, Flow linter, strict mode etc).
+        * But TypeScript is a *great* type system and getting better all the time.
+        * There is benefit from adopting either system, but:
+        # I recommend adopting TypeScript
+      </section>
+
+      <section class="markdown">
+        # Example: Flow → TypeScript
+
+        * [github.com/wincent/js@b166b491c](https://github.com/wincent/js/commit/b166b491c4656fe34dcd5d3854c53c69c804378d)
+      </section>
+
+      <section class="photo screenshot" data-photo="images/diff.png">
+        <!-- A slightly tricky one because it involves function types, which tend to be more complex. -->
+        <!-- But even so, migrating is straightforward. -->
+        <!-- Note use of `ReturnType<typeof setTimeout>` - we know setTimeout returns a number, but we can use a utility type to extract the type in an abstract and future-proof way. -->
+      </section>
+
+      <section class="photo screenshot" data-photo="images/package.png">
+        <!-- We can create packages that export both Flow and TypeScript type information. -->
+        <!-- Alongside the usual vanilla JavaScript and ES module builds. -->
+      </section>
+
+      <section class="markdown">
+        # Other resources 📗
+
+        * Playgrounds: [Try Flow](https://flow.org/try/) and [TypeScript Playground](https://www.typescriptlang.org/play/)
+        * [github.com/niieani/typescript-vs-flowtype](https://github.com/niieani/typescript-vs-flowtype)
+        * [github.com/bcherny/flow-to-typescript](https://github.com/bcherny/flow-to-typescript)
+        * [github.com/bcherny/undux](https://github.com/bcherny/undux)
+        * [What the Flow team has been up to
+](https://medium.com/flow-type/what-the-flow-team-has-been-up-to-54239c62004f) (28 January 2019)
+      </section>
+
+      <section>
+        <div class="markdown">
+          # Resources for haters... 📙
+
+          * [The TypeScript Tax](https://medium.com/javascript-scene/the-typescript-tax-132ff4cb175b)
+          * [You Might Not Need TypeScript (or Static Types)](https://medium.com/javascript-scene/you-might-not-need-typescript-or-static-types-aa7cb670a77b)
+          * [The ever-lasting strife of static vs dynamic typing — TypeScript won't help](https://habr.com/en/post/437844/)
+          * [Why do people hate typescript?](https://www.quora.com/Why-do-people-hate-typescript) (Quora)
+        </div>
+        <div class="haters"></div>
+      </section>
+
+      <section class="markdown">
+        # Questions?
+
+        * [greg@hurrell.net](mailto:greg@hurrell.net) ✉️
+        * [wincent.github.io/typing-in-js](https://wincent.github.io/typing-in-js)
+      </section>
+    </article>
+    <aside id="notes"></aside>
+    <aside id="presenter" class="hidden">
+      Presenter mode: <strong id="presenter-toggle">ON</strong>
+    </aside>
+    <aside id="timer" class="hidden">
+    </aside>
+    <script src="vendor/highlight/highlight.pack.js"></script>
+    <script src="vendor/markdown-it.min.js"></script>
+    <script src="vendor/rough.js"></script>
+    <script src="core.mjs" type="module"></script>
+    <script src="slides.mjs" type="module"></script>
+  </body>
+</html>
+<!-- vim: set tw=0: -->
